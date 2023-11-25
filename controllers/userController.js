@@ -123,6 +123,7 @@ exports.editUserProfile = async (req, res) => {
         }
 
         return res.status(200).json({
+            success: true,
             message: "Profile updated",
             updatedProfile: profileEdit
         });
@@ -133,13 +134,35 @@ exports.editUserProfile = async (req, res) => {
 }
 
 exports.changePassword = async (req, res) => {
-    const user = req.user.user
+    const user = req.user.user;
+    const { oldPassword, newPassword } = req.body;
     try {
-        const { oldPassword, newPassword , confirmPassword } = req.body
-        if (!oldPassword || !newPassword || confirmPassword) {
-            return res.status(400).json({ msg: "Please fill all fields" })
+
+
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ success: false, message: "Please fill all fields" });
         }
+
+        const match = await bcrypt.compare(oldPassword, user.password);
+
+        if (!match) {
+            return res.status(401).json({ success: false, message: "Invalid old password" });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        const updatedPassword = await User.findByIdAndUpdate( user._id, { password: hashedPassword }, { new: true } );
+		console.log(user);
+        console.log(user.password);
+        return res.status(200).json({
+            success: true,
+            message: "Password updated successfully",
+            oldPassword: user.password,
+            updatedPassword: updatedPassword,
+        });
     } catch (error) {
-        
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Internal server error" });
     }
-}
+};
