@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
         const existingUser = await User.findOne({ email })
 
     	if (existingUser) {
-    		return res.status(400).json({ message: "User already exists" })
+    		return res.status(400).json({ success: false, message: "User already exists" })
     	}
 
         const salt = await bcrypt.genSalt(10)
@@ -97,7 +97,7 @@ exports.fetchUserProfile = async (req, res) => {
         const userProfile = await User.findById(user._id)
 
         if (!userProfile) {
-            return res.status(404).json({ message: "User not found" })
+            return res.status(404).json({ success: false, message: "User not found" })
         }
 
         return res.status(200).json({
@@ -124,7 +124,7 @@ exports.editUserProfile = async (req, res) => {
         const userProfile = await User.findByIdAndUpdate(user._id, profileEdit, { new: true });
 
         if (!userProfile) {
-            return res.status(404).json({ status: "fail", message:  "User not found" })
+            return res.status(404).json({ success: false, message:  "User not found" })
         }
 
         return res.status(200).json({
