@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 exports.getUsers = async (req, res) => {
-    const admin =req.user.user
+    const admin =req.user
     try {
         const users = await User.find();
         return res.status(200).json({
@@ -69,7 +69,7 @@ exports.login = async (req, res) => {
         const match = await bcrypt.compare(password, existingUser.password)
 
         if (match) {
-            const token = jwt.sign({ user: existingUser}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
+            const token = jwt.sign({ existingUser } , process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
             existingUser.token = token;
             return res.cookie("access_token", token, {
                 httpOnly: true,
@@ -79,6 +79,11 @@ exports.login = async (req, res) => {
                 id: existingUser._id,
                 token: token
             })
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: "Wrong password",
+            })
         }
     } catch (error) {
         console.log(`Error:\n${error}`)
@@ -87,7 +92,7 @@ exports.login = async (req, res) => {
 }
 
 exports.fetchUserProfile = async (req, res) => {
-    const user = req.user.user
+    const user = req.user.existingUser
     try {
         const userProfile = await User.findById(user._id)
 
@@ -106,7 +111,7 @@ exports.fetchUserProfile = async (req, res) => {
 }
 
 exports.editUserProfile = async (req, res) => {
-    const user = req.user.user
+    const user = req.user.existingUser
     try {
         const profileEdit = req.body;
 
@@ -134,11 +139,9 @@ exports.editUserProfile = async (req, res) => {
 }
 
 exports.changePassword = async (req, res) => {
-    const user = req.user.user;
+    const user = req.user.existingUser
     const { oldPassword, newPassword } = req.body;
     try {
-
-
         if (!oldPassword || !newPassword) {
             return res.status(400).json({ success: false, message: "Please fill all fields" });
         }
