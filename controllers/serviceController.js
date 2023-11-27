@@ -16,7 +16,7 @@ exports.getServices = async (req, res) => {
 exports.addService = async (req, res) => {
     // const admin = req.user.existinguser
     try {
-        const { title, description, price } = req.body
+        const { title, description, category, price } = req.body
 
         if (!title) {
             return res.status(400).json({ message: "Please provide a service name" })
@@ -31,6 +31,7 @@ exports.addService = async (req, res) => {
         const service = await Service.create({
             title,
             description,
+            category,
             price
         })
 

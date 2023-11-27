@@ -29,6 +29,7 @@ exports.cookieAuth = (req,res, next) => {
     try {
         const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		req.user = user
+		console.log(user);
 		next()
     } catch (error) {
         res.clearCookie("access_token")
@@ -37,7 +38,8 @@ exports.cookieAuth = (req,res, next) => {
 }
 
 exports.isAdmin = async (req, res, next) => {
-	if (req.user.user.role === "admin") {
+	const user = req.user.existingUser
+	if (user.role === "admin") {
 		next()
 	} else {
 		return res.status(401).json({

@@ -39,6 +39,7 @@ exports.register = async (req, res) => {
             last_name,
             email,
             password: hashedPassword,
+            createdAt: new Date().toJSON(),
         })
 
         return res.status(201).json({
@@ -65,11 +66,12 @@ exports.login = async (req, res) => {
         if (!existingUser) {
             throw new Error("Invalid user credentials")
         }
+        console.log(existingUser);
 
         const match = await bcrypt.compare(password, existingUser.password)
 
         if (match) {
-            const token = jwt.sign({ existingUser } , process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
+            const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
             existingUser.token = token;
             return res.cookie("access_token", token, {
                 httpOnly: true,
@@ -95,6 +97,26 @@ exports.fetchUserProfile = async (req, res) => {
     const user = req.user.existingUser
     try {
         const userProfile = await User.findById(user._id)
+
+        if (!userProfile) {
+            return res.status(404).json({ success: false, message: "User not found" })
+        }
+
+        return res.status(200).json({
+            success: true,
+            user: userProfile
+        });
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({ success: false, message: "Internal server error" })
+    }
+}
+
+exports.fetchOtherUserProfile = async (req, res) => {
+    try {
+        const { userId } = req.params
+
+        const userProfile = await User.findById(userId)
 
         if (!userProfile) {
             return res.status(404).json({ success: false, message: "User not found" })

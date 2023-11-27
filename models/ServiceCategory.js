@@ -8,6 +8,10 @@ const serviceCategorySchema = new Schema({
         unique: true
     },
     description: String,
+    services: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Service',
+    }],
 })
 
 const ServiceCategory = mongoose.model("ServiceCategory", serviceCategorySchema)

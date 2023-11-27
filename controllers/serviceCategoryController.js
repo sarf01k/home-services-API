@@ -1,6 +1,6 @@
 const ServiceCategory = require("../models/ServiceCategory")
 
-exports.getServiceCategories = async (req, res) => {
+exports.getCategories = async (req, res) => {
     try {
         const serviceCategories = await ServiceCategory.find()
         return res.status(200).json({
@@ -13,7 +13,21 @@ exports.getServiceCategories = async (req, res) => {
     }
 }
 
-exports.addServiceCategory = async (req, res) => {
+exports.getCategory = async (req, res) => {
+    try {
+        const { categoryId } = req.params
+        const serviceCategory = await ServiceCategory.findById(categoryId).populate("services")
+        return res.status(200).json({
+            success: true,
+            serviceCategory: serviceCategory
+        })
+    } catch (error) {
+        console.error(`Error:\n${error}`);
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+exports.addCategory = async (req, res) => {
     try {
         const { name, description } = req.body
 
@@ -36,6 +50,33 @@ exports.addServiceCategory = async (req, res) => {
             success: true,
             message: "Category created",
             serviceCategory: serviceCategory
+        })
+    } catch (error) {
+        console.log(`Error:\n${error}`)
+		return res.status(500).json({ success: false, message: "Internal server error" })
+    }
+}
+
+exports.deleteCategory = async (req, res) => {
+    try {
+        const { name } = req.body
+
+        if (!name) {
+            return res.status(400).json({ message: "Please provide a category name to be deleted" })
+        }
+
+        const existingCategory = await ServiceCategory.findOne({ name })
+
+        if (!existingCategory) {
+            return res.status(400).json({ message: "Category does not exist" })
+        }
+
+        const serviceCategory = await ServiceCategory.deleteOne({ name })
+
+        return res.status(200).json({
+            success: true,
+            serviceCategory: serviceCategory,
+            message: "Category deleted"
         })
     } catch (error) {
         console.log(`Error:\n${error}`)
