@@ -1,4 +1,4 @@
-const ServiceCategory = require("../models/ServiceCategory")
+const ServiceCategory = require("../models/Category")
 
 exports.getCategories = async (req, res) => {
     try {
