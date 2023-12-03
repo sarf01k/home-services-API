@@ -27,6 +27,34 @@ exports.getCategory = async (req, res) => {
     }
 }
 
+exports.updateCategory = async (req,res) => {
+    const categoryUpdate = req.body;
+    try {
+        const { categoryId } = req.params
+
+        if (!req.body) {
+            return res.status(400).json({
+                message: "Please update a field"
+            })
+        }
+
+        const category = await ServiceCategory.findByIdAndUpdate(categoryId, categoryUpdate, { new: true });
+
+        if (!category) {
+            return res.status(404).json({ success: false, message:  "Category does not exist" })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Category updated",
+            updatedCategory: category
+        });
+    } catch (error) {
+        console.error(`Error:\n${error}`);
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 exports.addCategory = async (req, res) => {
     try {
         const { name, description } = req.body
@@ -59,23 +87,18 @@ exports.addCategory = async (req, res) => {
 
 exports.deleteCategory = async (req, res) => {
     try {
-        const { name } = req.body
+        const { categoryId } = req.params
 
-        if (!name) {
-            return res.status(400).json({ message: "Please provide a category name to be deleted" })
-        }
-
-        const existingCategory = await ServiceCategory.findOne({ name })
+        const existingCategory = await ServiceCategory.findOne({ _id: categoryId })
 
         if (!existingCategory) {
             return res.status(400).json({ message: "Category does not exist" })
         }
 
-        const serviceCategory = await ServiceCategory.deleteOne({ name })
+        const category = await ServiceCategory.deleteOne({ _id: categoryId })
 
         return res.status(200).json({
             success: true,
-            serviceCategory: serviceCategory,
             message: "Category deleted"
         })
     } catch (error) {

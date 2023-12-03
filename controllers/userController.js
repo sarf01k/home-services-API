@@ -139,7 +139,7 @@ exports.editUserProfile = async (req, res) => {
 
         if (!req.body) {
             return res.status(400).json({
-                message: "Please fill all fields"
+                message: "Please update a field"
             })
         }
 
