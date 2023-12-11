@@ -1,38 +1,35 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
-const bookingSchema = Schema({
+const bookingSchema = new Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: "User",
         required: true
     },
-    serviceType: {
-        type: String,
+    service: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Service",
         required: true
     },
     requestDate: {
         type: Date,
         default: Date.now
     },
-    status: {
-        type: String,
-        enum: ['pending', 'confirmed', 'completed'],
-        default: 'pending'
-    },
-    workerID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Worker'
+    startDate: {
+        type: Date
     },
     startTime: {
         type: Date
     },
-    endTime: {
-        type: Date
+    additionalInfo: {
+        type: String
     },
-    crewSize: {
-        type: Number, default: 1
-    },
+    status: {
+        type: String,
+        enum: ['pending', 'confirmed', 'completed'],
+        default: 'pending'
+    }
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

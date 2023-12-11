@@ -15,8 +15,8 @@ exports.getCategories = async (req, res) => {
 }
 
 exports.getCategory = async (req, res) => {
+    const { categoryId } = req.params
     try {
-        const { categoryId } = req.params
 
         const serviceCategory = await ServiceCategory.findById(categoryId).populate("services")
 
@@ -38,9 +38,9 @@ exports.getCategory = async (req, res) => {
 }
 
 exports.updateCategory = async (req,res) => {
-    const categoryUpdate = req.body;
+    const { categoryUpdate } = req.body;
+    const { categoryId } = req.params
     try {
-        const { categoryId } = req.params
 
         if (!req.body) {
             return res.status(400).json({
@@ -66,8 +66,8 @@ exports.updateCategory = async (req,res) => {
 }
 
 exports.addCategory = async (req, res) => {
+    const { name, description } = req.body
     try {
-        const { name, description } = req.body
 
         if (!name) {
             return res.status(400).json({ message: "Please provide a category name" })
@@ -96,8 +96,8 @@ exports.addCategory = async (req, res) => {
 }
 
 exports.deleteCategory = async (req, res) => {
+    const { categoryId } = req.params
     try {
-        const { categoryId } = req.params
 
         const existingCategory = await ServiceCategory.findOne({ _id: categoryId })
 
