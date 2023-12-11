@@ -1,4 +1,5 @@
-const ServiceCategory = require("../models/Category")
+const ServiceCategory = require("../models/Category");
+const Service = require("../models/Service");
 
 exports.getCategories = async (req, res) => {
     try {
@@ -16,7 +17,16 @@ exports.getCategories = async (req, res) => {
 exports.getCategory = async (req, res) => {
     try {
         const { categoryId } = req.params
+
         const serviceCategory = await ServiceCategory.findById(categoryId).populate("services")
+
+        if (!serviceCategory) {
+            return res.status(400).json({
+                success: false,
+                message: "Category does not exist"
+            })
+        }
+
         return res.status(200).json({
             success: true,
             serviceCategory: serviceCategory
@@ -94,6 +104,8 @@ exports.deleteCategory = async (req, res) => {
         if (!existingCategory) {
             return res.status(400).json({ message: "Category does not exist" })
         }
+
+        const removeServices = await Service.deleteMany({ category: existingCategory._id })
 
         const category = await ServiceCategory.deleteOne({ _id: categoryId })
 

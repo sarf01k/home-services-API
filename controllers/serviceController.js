@@ -121,6 +121,12 @@ exports.deleteService= async (req, res) => {
             return res.status(400).json({ message: "Service does not exist" })
         }
 
+        const removeFromCategory = await ServiceCategory.findByIdAndUpdate(
+            existingService.category,
+            { $pull: { services: existingService._id} },
+            {new: true}
+        )
+
         const service = await Service.deleteOne({ _id: serviceId })
 
         return res.status(200).json({
