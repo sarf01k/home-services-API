@@ -10,6 +10,7 @@ app.use(express.urlencoded({extended: false}))
 const port = process.env.PORT || 5000
 dbConnection()
 
+app.use("/", require("./routes/bookingRoutes"));
 app.use("/", require("./routes/categoryRoutes"));
 app.use("/", require("./routes/serviceRoutes"));
 app.use("/", require("./routes/userRoutes"));

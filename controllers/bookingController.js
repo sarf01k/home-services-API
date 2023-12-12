@@ -6,7 +6,7 @@ exports.getAllBookings = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            bookinga: bookings
+            bookings: bookings
         })
     } catch (error) {
         console.error(`Error:\n${error}`);
@@ -34,8 +34,8 @@ exports.getBooking = async (req, res) => {
 }
 
 exports.createBooking = async (req, res) => {
-    const { serviceId, date, time, additionalInfo } = req.body;
-    const newBooking = new Booking({ serviceId, date, time, additionalInfo });
+    const { userId, serviceId, address, startDate, startTime, additionalInfo } = req.body;
+    const newBooking = new Booking({ userId, serviceId, address, startDate, startTime, additionalInfo });
 
     try {
         const savedBooking = await newBooking.save();
@@ -87,7 +87,7 @@ exports.deleteBooking = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Category deleted"
+            message: "Booking deleted"
         })
     } catch (error) {
         console.error(`Error:\n${error}`);

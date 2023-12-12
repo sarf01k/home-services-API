@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
 const bookingSchema = new Schema({
-    userID: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    service: {
+    serviceId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Service",
         required: true
@@ -16,22 +16,23 @@ const bookingSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    address: {
+        type: String,
+        required: true
+    },
     startDate: {
-        type: Date
+        type: Date,
+        required: true
     },
     startTime: {
-        type: Date
+        type: Date,
+        required: true
     },
     additionalInfo: {
         type: String
-    },
-    status: {
-        type: String,
-        enum: ['pending', 'confirmed', 'completed'],
-        default: 'pending'
     }
 });
 
-const Booking = mongoose.model('Booking', bookingSchema);
+const Booking = mongoose.model("Booking", bookingSchema);
 
 module.exports = Booking;
