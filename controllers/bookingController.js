@@ -14,6 +14,21 @@ exports.getAllBookings = async (req, res) => {
     }
 }
 
+exports.getBookings = async (req, res) => {
+    const user = req.user.existingUser
+    try {
+        const bookings = await Booking.find({ userId: user._id })
+
+        return res.status(200).json({
+            success: true,
+            bookings: bookings
+        })
+    } catch (error) {
+        console.error(`Error:\n${error}`);
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 exports.getBooking = async (req, res) => {
     const { bookingId } = req.params;
     try {
@@ -43,15 +58,17 @@ const timeStringToMinutes = (timeString) => {
 };
 
 exports.createBooking = async (req, res) => {
+    const user = req.user.existingUser
     const { userId, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber } = req.body;
-    const newBooking = new Booking({ userId, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber });
+    const newBooking = new Booking({ userId: user._id, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber });
 
     try {
-        const totalMinutes = timeStringToMinutes(startTime) + parseInt(duration * 60);
+        const totalMinutes = timeStringToMinutes(startTime) + parseInt(duration) * 60;
+        console.log(totalMinutes);
         if (totalMinutes > (22 * 60)) {
             return res.status(400).json({
                 success: false,
-                message: "Work duration must not exceed 15 hours."
+                message: "Appointment must start after 7 AM and end before 10 PM."
             });
         }
 

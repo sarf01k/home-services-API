@@ -1,35 +1,11 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-// exports.auth = (req, res, next) => {
-// 	const authHeader = req.headers.authorization
-// 	if (!authHeader || !authHeader.startsWith("Bearer ")) {
-// 		return res.status(401).json({
-// 			status: "Fail",
-// 			message: "Authentication failed. Please provide a valid token.",
-// 		})
-// 	}
-
-// 	const token = authHeader.split(" ")[1]
-// 	try {
-// 		const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-// 		req.user = user
-// 		next()
-// 	} catch (error) {
-// 		console.log(`JWT verification error:\n${error}`)
-// 		return res.status(401).json({
-// 			status: "Fail",
-// 			message: "Authentication failed. Please provide a valid token.",
-// 		})
-// 	}
-// }
-
 exports.cookieAuth = (req,res, next) => {
     const token = req.cookies.access_token
     try {
         const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		req.user = user
-		console.log(user);
 		next()
     } catch (error) {
         res.clearCookie("access_token")
@@ -43,7 +19,7 @@ exports.isAdmin = async (req, res, next) => {
 		next()
 	} else {
 		return res.status(401).json({
-			status: "Fail",
+			success: false,
 			message: "You are not authorized to perform this action. Contact the admin",
 		})
 	}

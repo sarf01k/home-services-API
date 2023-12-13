@@ -7,9 +7,9 @@ const serviceCategoryRouter = express.Router()
 serviceCategoryRouter.use(cookieParser())
 
 serviceCategoryRouter.get("/api/categories", getCategories)
-serviceCategoryRouter.post("/api/categories/add", addCategory)
+serviceCategoryRouter.post("/api/categories/add", cookieAuth, isAdmin, addCategory)
 serviceCategoryRouter.get("/api/categories/:categoryId", getCategory)
-serviceCategoryRouter.put("/api/categories/update/:categoryId", updateCategory)
-serviceCategoryRouter.delete("/api/categories/delete/:categoryId", deleteCategory)
+serviceCategoryRouter.put("/api/categories/update/:categoryId", cookieAuth, isAdmin, updateCategory)
+serviceCategoryRouter.delete("/api/categories/delete/:categoryId", cookieAuth, isAdmin, deleteCategory)
 
 module.exports = serviceCategoryRouter

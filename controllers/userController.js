@@ -93,6 +93,30 @@ exports.login = async (req, res) => {
     }
 }
 
+exports.logout = (req, res) => {
+    // if (req.session) {
+    //     req.session.destroy((err) => {
+    //         if (err) {
+    //             console.error('Error destroying session:', err);
+    //         }
+    //         return res.status(200).json({
+    //             success: true,
+    //             message: "Logged out"
+    //         })
+    //     });
+    // }
+    try {
+        res.clearCookie('access_token');
+        return res.status(200).json({
+            success: true,
+            message: "Logged out"
+        })
+    } catch (error) {
+        console.log(`Error:\n${error}`)
+		res.status(500).json({ success: false, message: "Error logging out" })
+    }
+};
+
 exports.fetchUserProfile = async (req, res) => {
     const user = req.user.existingUser
     try {
