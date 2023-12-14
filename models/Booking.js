@@ -73,6 +73,9 @@ const bookingSchema = new Schema({
     },
     phoneNumber: {
         type: String
+    },
+    price: {
+        type: String,
     }
 });
 

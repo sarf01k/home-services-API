@@ -1,4 +1,5 @@
-const Booking = require("../models/Booking")
+const Booking = require("../models/Booking");
+const Service = require("../models/Service");
 
 exports.getAllBookings = async (req, res) => {
     try {
@@ -59,12 +60,12 @@ const timeStringToMinutes = (timeString) => {
 
 exports.createBooking = async (req, res) => {
     const user = req.user.existingUser
-    const { userId, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber } = req.body;
-    const newBooking = new Booking({ userId: user._id, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber });
+    const { serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber } = req.body;
+    const requestedService = await Service.findById(serviceId)
+    const newBooking = new Booking({ userId: user._id, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber, price: `$${requestedService.price}/hr` });
 
     try {
         const totalMinutes = timeStringToMinutes(startTime) + parseInt(duration) * 60;
-        console.log(totalMinutes);
         if (totalMinutes > (22 * 60)) {
             return res.status(400).json({
                 success: false,
@@ -86,12 +87,12 @@ exports.createBooking = async (req, res) => {
 
 exports.updateBooking = async (req, res) => {
     const { bookingId } = req.params;
-    const { date, time, additionalInfo } = req.body;
+    const { address, startDate, startTime, duration, jobDescription, phoneNumber } = req.body;
 
     try {
         const updatedBooking = await Booking.findByIdAndUpdate(
             bookingId,
-            { date, time, additionalInfo },
+            { address, startDate, startTime, duration, jobDescription, phoneNumber },
             { new: true }
         );
 
