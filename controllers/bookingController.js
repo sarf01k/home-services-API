@@ -62,7 +62,7 @@ exports.createBooking = async (req, res) => {
     const user = req.user.existingUser
     const { serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber } = req.body;
     const requestedService = await Service.findById(serviceId)
-    const newBooking = new Booking({ userId: user._id, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber, price: `$${requestedService.price}/hr` });
+    const newBooking = new Booking({ userId: user._id, serviceId, address, startDate, startTime, duration, jobDescription, phoneNumber, bookingPrice: requestedService.price * duration });
 
     try {
         const totalMinutes = timeStringToMinutes(startTime) + parseInt(duration) * 60;
