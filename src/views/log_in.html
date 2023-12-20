@@ -4,13 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServEase | Log in</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../public/css/login.css">
 </head>
 <body>
-    <section class="page-section log-in-section">
-
-    </section>
-    <section class="page-section image-section">
-
+    <header class="header">
+        <a class="logo" href="">ServEase</a>
+        <ul class="nav-list">
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+    </header>
+    <section class="login-section">
+        <div class="login-container">
+            <h2>Log in</h2>
+            <form class="login-form" action="#" method="post">
+                <div class="form-group">
+                    <label for="username">Email:</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Log in</button>
+                </div>
+            </form>
+        </div>
     </section>
 </body>
 </html>

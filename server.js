@@ -23,19 +23,19 @@ app.use("/api/services", require("./src/routes/serviceRoutes"));
 app.use("/api/bookings", require("./src/routes/bookingRoutes"));
 app.use("/api/categories", require("./src/routes/categoryRoutes"));
 
-app.get("/", async (req, res) => {
+app.get("/api/auth/login", async (req, res) => {
     try {
-        const result = await Service.find();
-        res.render("index", { services: result });
+        res.sendFile(__dirname + "/src/views/log_in.html")
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
-app.get("/api/auth/login", async (req, res) => {
+app.get("/", async (req, res) => {
     try {
-        res.sendFile(__dirname + "/src/views/log_in.html")
+        const result = await Service.find();
+        res.render("index", { services: result });
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
