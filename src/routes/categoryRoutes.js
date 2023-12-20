@@ -6,10 +6,10 @@ const { cookieAuth , auth, isAdmin } = require("../auth/auth")
 const serviceCategoryRouter = express.Router()
 serviceCategoryRouter.use(cookieParser())
 
-serviceCategoryRouter.get("/api/categories", getCategories)
-serviceCategoryRouter.post("/api/categories/add", cookieAuth, isAdmin, addCategory)
-serviceCategoryRouter.get("/api/categories/:categoryId", getCategory)
-serviceCategoryRouter.put("/api/categories/update/:categoryId", cookieAuth, isAdmin, updateCategory)
-serviceCategoryRouter.delete("/api/categories/delete/:categoryId", cookieAuth, isAdmin, deleteCategory)
+serviceCategoryRouter.get("/", getCategories)
+serviceCategoryRouter.post("/add", cookieAuth, isAdmin, addCategory)
+serviceCategoryRouter.get("/:categoryId", getCategory)
+serviceCategoryRouter.put("/update/:categoryId", cookieAuth, isAdmin, updateCategory)
+serviceCategoryRouter.delete("/delete/:categoryId", cookieAuth, isAdmin, deleteCategory)
 
 module.exports = serviceCategoryRouter

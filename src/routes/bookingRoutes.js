@@ -6,11 +6,11 @@ const { cookieAuth , isAdmin } = require("../auth/auth")
 const bookingRouter = express.Router()
 bookingRouter.use(cookieParser())
 
-bookingRouter.get("/api/admin/all-bookings", cookieAuth, isAdmin, getAllBookings)
-bookingRouter.get("/api/bookings", cookieAuth, getBookings)
-bookingRouter.post("/api/bookings", cookieAuth, createBooking)
-bookingRouter.get("/api/bookings/:bookingId", cookieAuth, getBooking)
-bookingRouter.put("/api/bookings/:bookingId", cookieAuth, updateBooking)
-bookingRouter.delete("/api/bookings/:bookingId", cookieAuth, deleteBooking)
+bookingRouter.get("/all-bookings", cookieAuth, isAdmin, getAllBookings)
+bookingRouter.get("/", cookieAuth, getBookings)
+bookingRouter.post("/", cookieAuth, createBooking)
+bookingRouter.get("/:bookingId", cookieAuth, getBooking)
+bookingRouter.put("/:bookingId", cookieAuth, updateBooking)
+bookingRouter.delete("/:bookingId", cookieAuth, deleteBooking)
 
 module.exports = bookingRouter

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServEase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../../public/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="">ServEase</a>
+        <ul class="nav-list">
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+        <a class="log-in-button" href="http://localhost:5000/api/auth/login">Log in</a>
+    </header>
+    <section class="main-section">
+        <div class="main-section-text">
+            <div>
+                <p>Book On-Demand</p>
+                <p>Home Services</p>
+                <p>in Your City</p>
+            </div>
+            <a class="all-services-btn" href="">All Services</a>
+            <p class="clients">5K+ Happy Clients</p>
+        </div>
+        <div class="main-section-image">
+            <img src="../../public/images/technicians.jpg" alt="technicians">
+        </div>
+    </section>
+    <section class="booking-section">
+        <div class="booking-card">
+            <p  class="booking-card-text">Book A Service!</p>
+            <div>
+                <select name="" id="">
+                    <option value="" disabled selected>Choose a service</option>
+                    <% services.forEach(service => { %>
+                        <option value=""><%= service.title %></option>
+                    <% }); %>
+                </select>
+                <a class="book-btn" href="">Book</a>
+            </div>
+        </div>
+    </section>
+    <section class="attributes-section">
+        <p class="section-title">Our Attributes</p>
+        <div class="attributes">
+            <div class="att-card">
+                <i class="fa-solid fa-screwdriver-wrench fa-xl"></i>
+                <p class="att-title">Comprehensive Services</p>
+                <p>Discover a wide range of home services tailored to meet your needs. From plumbing and electrical work to landscaping and cleaning, we've got all your home maintenance tasks covered.</p>
+            </div>
+            <div class="att-card">
+                <i class="fa-solid fa-brain fa-xl"></i>
+                <p class="att-title">Expert Professionals</p>
+                <p>Our platform connects you with highly skilled and certified professionals. Rest assured that your home is in capable hands, as our experts are vetted for their expertise, reliability, and professionalism.</p>
+            </div>
+            <div class="att-card">
+                <i class="fa-solid fa-hand-holding-dollar fa-xl"></i>
+                <p class="att-title">Transparent Pricing</p>
+                <p>Say goodbye to hidden fees and unexpected costs. Our transparent pricing model ensures that you know exactly what you're paying for. Receive upfront quotes and choose services that fit your budget.</p>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials-section">
+        <p class="section-title">Testimonials</p>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <div class="info">
+                    <div class="image">
+                        <a href="">a</a>
+                    </div>
+                    <div class="info-text">
+                        <div class="name">
+                            M. Scott
+                        </div>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus atque deleniti magnam similique rem, voluptatibus quae repudiandae quam sed, repellat nulla distinctio voluptates corporis? Id voluptates repudiandae nihil quasi quos.
+                </p>
+            </div>
+            <div class="testimonial-card">
+                <div class="info">
+                    <div class="image">
+                        <a href="">a</a>
+                    </div>
+                    <div class="info-text">
+                        <div class="name">
+                            Dwight
+                        </div>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus atque deleniti magnam similique rem, voluptatibus quae repudiandae quam sed, repellat nulla distinctio voluptates corporis? Id voluptates repudiandae nihil quasi quos.
+                </p>
+            </div>
+            <div class="testimonial-card">
+                <div class="info">
+                    <div class="image">
+                        <a href="">a</a>
+                    </div>
+                    <div class="info-text">
+                        <div class="name">
+                            J. Levinson
+                        </div>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus atque deleniti magnam similique rem, voluptatibus quae repudiandae quam sed, repellat nulla distinctio voluptates corporis? Id voluptates repudiandae nihil quasi quos.
+                </p>
+            </div>
+        </div>
+    </section>
+    <footer >
+        <p>&copy; 2023 Isaac Sarfo.</p>
+        <p>
+            Built by <a href="https://github.com/sarf01k" target="_blank" class="github-username">@sarf01k</a>
+        </p>
+    </footer>
+</body>
+</html>
