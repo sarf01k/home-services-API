@@ -67,6 +67,7 @@ header {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 500px;
+    color: white;
 }
 
 .login-container h2 {
@@ -94,6 +95,8 @@ header {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
 .form-group button {
@@ -108,4 +111,14 @@ header {
 
 .form-group button:hover {
     background-color: #f0f0f0;
+}
+
+#forgot-password a {
+    color: white;
+    float: right;
+    margin-bottom: 15px;
+}
+
+#forgot-password a:hover {
+    text-decoration: underline;
 }

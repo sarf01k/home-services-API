@@ -1,6 +1,9 @@
 const User = require("../models/User")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const path = require("path");
+
+const viewsPath = path.join(__dirname, "..", "views")
 
 exports.getUsers = async (req, res) => {
     const admin = req.user.existingUser
@@ -53,12 +56,11 @@ exports.register = async (req, res) => {
     }
 }
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
     try {
         const { email, password } = req.body
-
         if ( !email || !password) {
-    		return res.status(400).json({ message: "Please fill all fields" })
+    		res.status(400).json({ message: "Please fill all fields" })
     	}
 
         const existingUser = await User.findOne({ email })
@@ -66,25 +68,20 @@ exports.login = async (req, res) => {
         if (!existingUser) {
             throw new Error("Invalid user credentials")
         }
-        console.log(existingUser);
 
         const match = await bcrypt.compare(password, existingUser.password)
 
         if (match) {
-            const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
+            const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
             existingUser.token = token;
-            return res.cookie("access_token", token, {
+            console.log(existingUser);
+            res.cookie("access_token", token, {
                 httpOnly: true,
-            }).status(200).json({
-                success: true,
-                message: `Welcome back ${existingUser?.first_name}`,
-                id: existingUser._id,
-                token: token
-            })
+            }).status(200).sendFile(viewsPath + "/main.html")
         } else {
-            return res.status(200).json({
+            res.status(200).json({
                 success: false,
-                message: "Wrong password",
+                message: "Wrong email or password",
             })
         }
     } catch (error) {
@@ -94,23 +91,9 @@ exports.login = async (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    // if (req.session) {
-    //     req.session.destroy((err) => {
-    //         if (err) {
-    //             console.error('Error destroying session:', err);
-    //         }
-    //         return res.status(200).json({
-    //             success: true,
-    //             message: "Logged out"
-    //         })
-    //     });
-    // }
     try {
         res.clearCookie('access_token');
-        return res.status(200).json({
-            success: true,
-            message: "Logged out"
-        })
+        res.status(200).redirect("http://localhost:5000")
     } catch (error) {
         console.log(`Error:\n${error}`)
 		res.status(500).json({ success: false, message: "Error logging out" })

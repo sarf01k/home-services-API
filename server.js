@@ -5,6 +5,7 @@ const morgan = require("morgan")
 const dbConnection = require("./src/config/db")
 const Service = require("./src/models/Service")
 const { getServices } = require("./src/controllers/serviceController")
+const { logout } = require("./src/controllers/userController")
 
 const app = express()
 app.set('views', path.join(__dirname, 'src', 'views'));
