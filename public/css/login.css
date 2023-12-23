@@ -63,7 +63,7 @@ header {
 
 .login-container {
     background-color: black;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 500px;
@@ -75,12 +75,8 @@ header {
     color: white;
 }
 
-.login-form {
-    margin: 20px 0;
-}
-
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .form-group label {
@@ -121,4 +117,12 @@ header {
 
 #forgot-password a:hover {
     text-decoration: underline;
+}
+
+.error-message {
+    font-size: small;
+    margin-bottom: 5;
+    color: red;
+    visibility: hidden;
+    display: inline-block;
 }

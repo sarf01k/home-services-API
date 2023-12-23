@@ -60,29 +60,29 @@ exports.login = async (req, res, next) => {
     try {
         const { email, password } = req.body
         if ( !email || !password) {
-    		res.status(400).json({ message: "Please fill all fields" })
+    		return res.status(400).json({ message: "Please fill all fields" })
     	}
 
         const existingUser = await User.findOne({ email })
 
         if (!existingUser) {
-            throw new Error("Invalid user credentials")
+            return res.status(400).json({ message: "Email not registered" })
         }
 
         const match = await bcrypt.compare(password, existingUser.password)
 
-        if (match) {
-            const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
-            existingUser.token = token;
-            console.log(existingUser);
-            res.cookie("access_token", token, {
-                httpOnly: true,
-            }).status(200).sendFile(viewsPath + "/main.html")
-        } else {
-            res.status(200).json({
+        if (!match) {
+            return res.status(401).json({
                 success: false,
                 message: "Wrong email or password",
             })
+        } else {
+            const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
+            existingUser.token = token;
+            console.log(existingUser);
+            return res.cookie("access_token", token, {
+                httpOnly: true,
+            }).status(200).sendFile(viewsPath + "/main.html")
         }
     } catch (error) {
         console.log(`Error:\n${error}`)
