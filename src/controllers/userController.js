@@ -76,14 +76,16 @@ exports.login = async (req, res, next) => {
                 success: false,
                 message: "Wrong email or password",
             })
-        } else {
-            const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
-            existingUser.token = token;
-            console.log(existingUser);
-            return res.cookie("access_token", token, {
-                httpOnly: true,
-            }).status(200).sendFile(viewsPath + "/main.html")
         }
+
+        const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
+        existingUser.token = token;
+        console.log(existingUser);
+
+        res.status(200).cookie("access_token", token, {
+            httpOnly: true,
+        }).sendFile(viewsPath + "/main.html");
+        // redirect(viewsPath + "/main.html")
     } catch (error) {
         console.log(`Error:\n${error}`)
 		res.status(500).json({ success: false, message: "Internal server error" })

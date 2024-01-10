@@ -19,14 +19,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             const response = await fetch(request);
+            const contentType = response.headers.get('Content-Type');
+
+        if (contentType && contentType.includes('application/json')) {
+            // If the response is JSON, parse it
             const data = await response.json();
-            // console.log(data);
 
             if (!response.ok) {
                 document.getElementById("loginError").innerText = `* ${data.message}`;
                 const errorMessage = document.querySelector('.error-message');
                 errorMessage.style.visibility = 'visible';
             }
+        } else {
+            // If the response is not JSON, treat it as HTML
+            const htmlResponse = await response.text();
+
+            // Use htmlResponse as needed, e.g., injecting it into the DOM
+            document.body.innerHTML = htmlResponse;
+        }
         } catch (error) {
             console.error(`Error:\n${error}`);
         }
