@@ -24,6 +24,8 @@ app.use("/api/services", require("./src/routes/serviceRoutes"));
 app.use("/api/bookings", require("./src/routes/bookingRoutes"));
 app.use("/api/categories", require("./src/routes/categoryRoutes"));
 
+const viewsPath = path.join(__dirname, "..", "views")
+
 app.get("/api/auth/login", async (req, res) => {
     try {
         res.sendFile(__dirname + "/src/views/log_in.html")
@@ -35,8 +37,7 @@ app.get("/api/auth/login", async (req, res) => {
 
 app.get("/", async (req, res) => {
     try {
-        const result = await Service.find();
-        res.render("index", { services: result });
+        res.sendFile(viewsPath + "/index.html");
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
