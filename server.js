@@ -24,7 +24,7 @@ app.use("/api/services", require("./src/routes/serviceRoutes"));
 app.use("/api/bookings", require("./src/routes/bookingRoutes"));
 app.use("/api/categories", require("./src/routes/categoryRoutes"));
 
-const viewsPath = path.join(__dirname, "..", "views")
+const viewsPath = path.join(__dirname, "src", "views")
 
 app.get("/api/auth/login", async (req, res) => {
     try {

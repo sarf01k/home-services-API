@@ -57,13 +57,14 @@ header {
     text-align: center;
 }
 
-.banner {
-    top: 0;
-    flex: 1;
-    min-height: 100vh;
-    height: 100%;
+#login-btn:hover {
+    background: red;
+}
+
+.booking-card-section {
+    height: 70vh;
     width: 100%;
-    background-image: url(../images/banner.jpg);
+    background-image: url(../images/booking-card-section.jpg);
     background-size: cover;
     background-position: center; /* Center the background image */
     background-repeat: no-repeat;
@@ -72,9 +73,20 @@ header {
     align-items: center;
 }
 
+.booking-card {
+    padding: 0 30px;
+    height: 80%;
+    background-color: orange;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .banner-text {
-    background: white;
     text-align: center;
-    padding: 8px 20px;
-    border-radius: 10px;
+    font-size: 30px;
+    font-weight: 500;
+    color: black;
 }
