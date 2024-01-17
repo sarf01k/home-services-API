@@ -76,7 +76,7 @@ header {
 .booking-card {
     padding: 0 30px;
     height: 80%;
-    background-color: orange;
+    background-color: white;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -89,4 +89,5 @@ header {
     font-size: 30px;
     font-weight: 500;
     color: black;
+    margin-bottom: 12px
 }

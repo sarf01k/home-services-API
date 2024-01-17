@@ -2,6 +2,7 @@ const User = require("../models/User")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const path = require("path");
+const Service = require("../models/Service");
 
 const viewsPath = path.join(__dirname, "..", "views")
 
@@ -81,10 +82,10 @@ exports.login = async (req, res, next) => {
         const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
         existingUser.token = token;
         console.log(existingUser);
-
+        const services = await Service.find();
         res.status(200).cookie("access_token", token, {
             httpOnly: true,
-        }).sendFile(viewsPath + "/main.html");
+        }).render("main", { services: services });
         // redirect(viewsPath + "/main.html")
     } catch (error) {
         console.log(`Error:\n${error}`)

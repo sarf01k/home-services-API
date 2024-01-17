@@ -31,7 +31,12 @@
                 and professional help is just a booking away!
             </h2>
             <div>
-                <input type="text">
+                <select id="selectOption" name="selectOption">
+                    <option value="" disabled selected>Choose a service</option>
+                    <% services.forEach(service => { %>
+                        <option value=""><%= service.title %></option>
+                    <% }); %>
+                </select>
                 <button>Book</button>
             </div>
         </div>
