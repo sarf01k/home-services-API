@@ -44,13 +44,15 @@ exports.register = async (req, res) => {
             email,
             password: hashedPassword,
             createdAt: new Date().toJSON(),
-        })
+        });
 
-        return res.status(201).json({
-            success: true,
-            message: "User created",
-            user: user,
-        })
+        const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
+        user.token = token;
+
+        const services = await Service.find();
+        res.status(200).cookie("access_token", token, {
+            httpOnly: true,
+        }).render("main", { services: services });
     } catch (error) {
         console.log(`Error:\n${error}`)
 		return res.status(500).json({ success: false, message: "Internal server error" })
@@ -73,10 +75,7 @@ exports.login = async (req, res, next) => {
         const match = await bcrypt.compare(password, existingUser.password)
 
         if (!match) {
-            return res.status(401).json({
-                success: false,
-                message: "Wrong email or password",
-            })
+            return res.status(401).json({ message: "Wrong email or password" })
         }
 
         const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })

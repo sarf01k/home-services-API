@@ -93,13 +93,13 @@ header {
     background-color: #f0f0f0;
 }
 
-#forgot-password a {
+#already a {
     color: white;
     float: right;
     margin-bottom: 15px;
 }
 
-#forgot-password a:hover {
+#already a:hover {
     text-decoration: underline;
 }
 

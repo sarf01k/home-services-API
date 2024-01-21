@@ -26,6 +26,15 @@ app.use("/api/categories", require("./src/routes/categoryRoutes"));
 
 const viewsPath = path.join(__dirname, "src", "views")
 
+app.get("/api/auth/register", async (req, res) => {
+    try {
+        res.sendFile(__dirname + "/src/views/sign_up.html")
+    } catch (error) {
+        console.error(`Error:\n${error}`);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 app.get("/api/auth/login", async (req, res) => {
     try {
         res.sendFile(__dirname + "/src/views/log_in.html")
