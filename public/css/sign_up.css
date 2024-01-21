@@ -34,7 +34,7 @@ header {
     color: black;
 }
 
-.login-section {
+.sign-up-section {
     top: 0;
     height: 100%;
     width: 100%;
@@ -45,7 +45,7 @@ header {
     justify-content: center;
 }
 
-.login-container {
+.sign-up-container {
     background-color: black;
     padding: 30px;
     border-radius: 8px;
@@ -54,7 +54,7 @@ header {
     color: white;
 }
 
-.login-container h2 {
+.sign-up-container h2 {
     text-align: center;
     color: white;
 }
