@@ -18,7 +18,7 @@
             <li><a href="">Contact Us</a></li>
         </ul>
         <a href="http://localhost:5000/api/auth/logout">
-            <div id="login-btn">
+            <div id="logout-btn">
                 Log out
                 <i class='bx bx-log-out' style='color:#ffffff'  ></i>
             </div>
@@ -30,14 +30,22 @@
                 Choose the service you need,<br>
                 and professional help is just a booking away!
             </h2>
-            <div>
-                <select id="selectOption" name="selectOption">
+            <div class="booking-form">
+                <input list="items" id="inputField">
+                <datalist id="items">
+                    <% services.forEach(service => { %>
+                        <option value="<%= service.title %>"><%= service.title %></option>
+                    <% }); %>
+                </datalist>
+                <!-- <select id="selectOption" name="selectOption">
                     <option value="" disabled selected>Choose a service</option>
                     <% services.forEach(service => { %>
                         <option value=""><%= service.title %></option>
                     <% }); %>
-                </select>
-                <button>Book</button>
+                </select> -->
+                <div id="booking-card-btn">
+                    Book
+                </div>
             </div>
         </div>
     </section>

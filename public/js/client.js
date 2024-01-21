@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loginButton.addEventListener("click", login);
 
-    async function login() {
+    async function login(event) {
+        event.preventDefault();
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         document.getElementById("loginError").innerText = '';

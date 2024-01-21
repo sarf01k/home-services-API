@@ -48,7 +48,7 @@ header {
     border-bottom: 2px dotted black;
 }
 
-#login-btn {
+#logout-btn {
     color: white;
     background: black;
     padding: 8px 20px;
@@ -57,7 +57,7 @@ header {
     text-align: center;
 }
 
-#login-btn:hover {
+#logout-btn:hover {
     background: red;
 }
 
@@ -76,6 +76,7 @@ header {
 .booking-card {
     padding: 0 30px;
     height: 80%;
+    width: 50%;
     background-color: white;
     border-radius: 15px;
     display: flex;
@@ -84,10 +85,46 @@ header {
     align-items: center;
 }
 
+.booking-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#booking-card-btn {
+    color: white;
+    background: black;
+    padding: 8px 20px;
+    border-style: none;
+    border-radius: 10px;
+    transition: all .3s ease;
+    text-align: center;
+}
+
+#booking-card-btn:hover {
+    background: green;
+}
+
+.booking-card input {
+    flex: 1;
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px;
+}
+
 .banner-text {
     text-align: center;
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 500;
     color: black;
     margin-bottom: 12px
+}
+
+.booking-form {
+    width: 100%;
 }
