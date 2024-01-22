@@ -93,6 +93,16 @@ header {
     background-color: #f0f0f0;
 }
 
+#flag-icon {
+    margin-right: 10px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+}
+
 #already a {
     color: white;
     float: right;
