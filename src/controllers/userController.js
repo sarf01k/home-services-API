@@ -23,9 +23,9 @@ exports.getUsers = async (req, res) => {
 
 exports.register = async (req, res) => {
     try {
-        const { first_name, last_name, email, password } = req.body
+        const { first_name, last_name, phone, email, password } = req.body
 
-        if (!first_name || !last_name || !email || !password) {
+        if (!first_name || !last_name || !email || !password || !phone) {
     		return res.status(400).json({ message: "Please fill all fields" })
     	}
 
@@ -41,6 +41,7 @@ exports.register = async (req, res) => {
         const user = await User.create({
             first_name,
             last_name,
+            phone,
             email,
             password: hashedPassword,
             createdAt: new Date().toJSON(),

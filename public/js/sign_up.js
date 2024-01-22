@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const first_name = document.getElementById("first-name").value;
         const last_name = document.getElementById("last-name").value;
+        const phone = document.getElementById("phone").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         document.getElementById("signUpError").innerText = '';
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ first_name, last_name, email, password }),
+            body: JSON.stringify({ first_name, last_name, phone, email, password }),
         });
 
         try {
