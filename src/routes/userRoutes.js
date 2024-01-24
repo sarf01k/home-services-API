@@ -1,7 +1,7 @@
 const express = require("express")
 const cookieParser = require("cookie-parser")
 const { register, login, getUsers, logout, fetchUserProfile, editUserProfile, changePassword, fetchOtherUserProfile } = require("../controllers/userController")
-const { cookieAuth , auth, isAdmin } = require("../auth/auth")
+const { cookieAuth, isAdmin } = require("../auth/auth")
 const { makeUserAdmin } = require("../utils/makeUserAdmin")
 
 const userRouter = express.Router()

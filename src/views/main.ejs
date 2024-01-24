@@ -49,5 +49,10 @@
             </div>
         </div>
     </section>
+    <section class="services-section">
+        <% services.forEach(service => { %>
+            <p value="<%= service.title %>"><%= service.title %></p>
+        <% }); %>
+    </section>
 </body>
 </html>

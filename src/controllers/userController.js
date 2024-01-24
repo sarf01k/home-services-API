@@ -53,6 +53,7 @@ exports.register = async (req, res) => {
         const services = await Service.find();
         res.status(200).cookie("access_token", token, {
             httpOnly: true,
+            secure: true,
         }).render("main", { services: services });
     } catch (error) {
         console.log(`Error:\n${error}`)
@@ -81,12 +82,9 @@ exports.login = async (req, res, next) => {
 
         const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
         existingUser.token = token;
-        console.log(existingUser);
-        const services = await Service.find();
-        res.status(200).cookie("access_token", token, {
+        return res.status(200).cookie("access_token", token, {
             httpOnly: true,
-        }).render("main", { services: services });
-        // redirect(viewsPath + "/main.html")
+        }).redirect("/api/home");
     } catch (error) {
         console.log(`Error:\n${error}`)
 		res.status(500).json({ success: false, message: "Internal server error" })
