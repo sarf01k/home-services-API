@@ -21,10 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         try {
-            console.log(first_name);
-        console.log(last_name);
-        console.log(email);
-        console.log(password);
             const response = await fetch(request);
             const contentType = response.headers.get('Content-Type');
 
@@ -32,15 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // If the response is JSON, parse it
                 const data = await response.json();
 
-                if (!response.ok) {
+                if (!response.ok || response.status === 302 || response.status === 303) {
                     document.getElementById("signUpError").innerText = `* ${data.message}`;
                     const errorMessage = document.querySelector('.error-message');
                     errorMessage.style.visibility = 'visible';
                 }
             } else {
-                // If the response is not JSON, treat it as HTML
-                const htmlResponse = await response.text();
-                document.body.innerHTML = htmlResponse;
+                window.location.href = "/api/home";
             }
         } catch (error) {
             console.error(`Error:\n${error}`);

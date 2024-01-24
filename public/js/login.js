@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loginButton.addEventListener("click", login);
 
-    async function login() {
+    async function login(event) {
+        event.preventDefault();
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         document.getElementById("loginError").innerText = '';
@@ -30,9 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     errorMessage.style.visibility = 'visible';
                 }
             } else {
-                // If the response is not JSON, treat it as HTML
-                const htmlResponse = await response.text();
-                document.body.innerHTML = htmlResponse;
+                window.location.href = "/api/home";
             }
         } catch (error) {
             console.error(`Error:\n${error}`);

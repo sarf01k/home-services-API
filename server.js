@@ -29,8 +29,13 @@ const viewsPath = path.join(__dirname, "src", "views")
 
 app.get("/api/home", cookieAuth, async (req, res) => {
     try {
-        const services = await Service.find();
-        res.status(200).render("main", { services: services });
+        const user = req.user;
+        if (user) {
+            const services = await Service.find();
+            res.status(200).render("main", { services: services });
+        } else {
+            res.redirect("/api/auth/login")
+        }
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });

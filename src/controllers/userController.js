@@ -23,9 +23,9 @@ exports.getUsers = async (req, res) => {
 
 exports.register = async (req, res) => {
     try {
-        const { first_name, last_name, phone, email, password } = req.body
+        const { first_name, last_name, phone, email, password } = req.body;
 
-        if (!first_name || !last_name || !email || !password || !phone) {
+        if (!first_name || !last_name || !phone || !email || !password) {
     		return res.status(400).json({ message: "Please fill all fields" })
     	}
 
@@ -49,12 +49,9 @@ exports.register = async (req, res) => {
 
         const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
         user.token = token;
-
-        const services = await Service.find();
         res.status(200).cookie("access_token", token, {
             httpOnly: true,
-            secure: true,
-        }).render("main", { services: services });
+        }).redirect("/api/home");;
     } catch (error) {
         console.log(`Error:\n${error}`)
 		return res.status(500).json({ success: false, message: "Internal server error" })
@@ -82,7 +79,7 @@ exports.login = async (req, res, next) => {
 
         const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
         existingUser.token = token;
-        return res.status(200).cookie("access_token", token, {
+        res.status(200).cookie("access_token", token, {
             httpOnly: true,
         }).redirect("/api/home");
     } catch (error) {
