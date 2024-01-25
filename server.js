@@ -34,7 +34,7 @@ app.get("/api/home", cookieAuth, async (req, res) => {
         if (user) {
             const services = await Service.find();
             const categories = await ServiceCategory.find();
-            res.status(200).render("main", { services: services, categories: categories });
+            res.status(200).render("home", { services: services, categories: categories });
         } else {
             res.redirect("/api/auth/login")
         }
@@ -64,7 +64,7 @@ app.get("/api/auth/login", async (req, res) => {
 
 app.get("/", async (req, res) => {
     try {
-        res.render("index");
+        res.render("welcome");
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
