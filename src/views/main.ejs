@@ -37,12 +37,6 @@
                         <option value="<%= service.title %>"><%= service.title %></option>
                     <% }); %>
                 </datalist>
-                <!-- <select id="selectOption" name="selectOption">
-                    <option value="" disabled selected>Choose a service</option>
-                    <% services.forEach(service => { %>
-                        <option value=""><%= service.title %></option>
-                    <% }); %>
-                </select> -->
                 <div id="booking-card-btn">
                     Book
                 </div>
@@ -50,8 +44,16 @@
         </div>
     </section>
     <section class="services-section">
-        <% services.forEach(service => { %>
-            <p value="<%= service.title %>"><%= service.title %></p>
+        <% categories.forEach(category => { %>
+            <p value="<%= category.name %>"><%= category.name %></p>
+            <% category.services.forEach(serviceId => { %>
+                <% const service = services.find(s => String(s._id) === String(serviceId)); %>
+                <% if (service) { %>
+                    <p value="<%= service.title %>"><%= service.title %></p>
+                <% } else { %>
+                    <p>No service found for ID <%= serviceId %></p>
+                <% } %>
+            <% }); %>
         <% }); %>
     </section>
 </body>

@@ -5,7 +5,8 @@ require ("dotenv").config()
 const morgan = require("morgan")
 const dbConnection = require("./src/config/db")
 const Service = require("./src/models/Service")
-const { cookieAuth } = require("./src/auth/auth")
+const { cookieAuth } = require("./src/auth/auth");
+const ServiceCategory = require("./src/models/Category");
 
 const app = express()
 app.use(cookieParser());
@@ -32,7 +33,8 @@ app.get("/api/home", cookieAuth, async (req, res) => {
         const user = req.user;
         if (user) {
             const services = await Service.find();
-            res.status(200).render("main", { services: services });
+            const categories = await ServiceCategory.find();
+            res.status(200).render("main", { services: services, categories: categories });
         } else {
             res.redirect("/api/auth/login")
         }
@@ -44,7 +46,7 @@ app.get("/api/home", cookieAuth, async (req, res) => {
 
 app.get("/api/auth/register", async (req, res) => {
     try {
-        res.sendFile(__dirname + "/src/views/sign_up.html")
+        res.render("sign_up")
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -53,7 +55,7 @@ app.get("/api/auth/register", async (req, res) => {
 
 app.get("/api/auth/login", async (req, res) => {
     try {
-        res.sendFile(__dirname + "/src/views/log_in.html")
+        res.render("log_in")
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -62,7 +64,7 @@ app.get("/api/auth/login", async (req, res) => {
 
 app.get("/", async (req, res) => {
     try {
-        res.sendFile(viewsPath + "/index.html");
+        res.render("index");
     } catch (error) {
         console.error(`Error:\n${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
