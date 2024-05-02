@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById("password").value;
         document.getElementById("signUpError").innerText = '';
 
-        const request = new Request("http://localhost:5000/api/auth/register", {
+        const request = new Request("/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -7,9 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-        document.getElementById("loginError").innerText = '';
 
-        const request = new Request("http://localhost:5000/api/auth/login", {
+        const request = new Request("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -21,18 +20,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch(request);
             const contentType = response.headers.get('Content-Type');
 
-            if (contentType && contentType.includes('application/json')) {
-                // If the response is JSON, parse it
-                const data = await response.json();
+            if (response.ok) {
+                if (contentType && contentType.includes("application/json")) {
 
-                if (!response.ok) {
-                    document.getElementById("loginError").innerText = `* ${data.message}`;
-                    const errorMessage = document.querySelector('.error-message');
-                    errorMessage.style.visibility = 'visible';
+                    const data = await response.json();
+                    console.log(data);
+
+                } else {
+                    console.log("Non-JSON response");
+                    window.location.href = "/api/home";
                 }
             } else {
-                window.location.href = "/api/home";
+                const data = await response.json();
+                console.log(data);
+                document.getElementById("loginError").innerText = `* ${data.message}`;
+                const errorMessage = document.querySelector(".error-message");
+                errorMessage.style.visibility = "visible";
             }
+
         } catch (error) {
             console.error(`Error:\n${error}`);
         }

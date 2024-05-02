@@ -6,7 +6,7 @@ const { cookieAuth , auth, isAdmin } = require("../auth/auth")
 const serviceRouter = express.Router()
 serviceRouter.use(cookieParser())
 
-serviceRouter.get("/", getServices)
+// serviceRouter.get("/", getServices)
 serviceRouter.post("/add", cookieAuth, isAdmin, addService)
 serviceRouter.get("/:serviceId", getService)
 serviceRouter.put("/update/:serviceId", cookieAuth, isAdmin, updateService)

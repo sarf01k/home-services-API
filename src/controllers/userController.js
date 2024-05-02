@@ -58,7 +58,7 @@ exports.register = async (req, res) => {
     }
 }
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
     try {
         const { email, password } = req.body
         if ( !email || !password) {
