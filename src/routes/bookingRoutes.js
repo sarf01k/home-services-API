@@ -9,8 +9,8 @@ bookingRouter.use(cookieParser())
 bookingRouter.get("/all-bookings", cookieAuth, isAdmin, getAllBookings)
 // bookingRouter.get("/", cookieAuth, getBookings)
 // bookingRouter.post("/", cookieAuth, createBooking)
-bookingRouter.get("/:bookingId", cookieAuth, getBooking)
-bookingRouter.put("/:bookingId", cookieAuth, updateBooking)
-bookingRouter.delete("/:bookingId", cookieAuth, deleteBooking)
+// bookingRouter.get("/:bookingId", cookieAuth, getBooking)
+// bookingRouter.put("/:bookingId", cookieAuth, updateBooking)
+// bookingRouter.delete("/:bookingId", cookieAuth, deleteBooking)
 
 module.exports = bookingRouter

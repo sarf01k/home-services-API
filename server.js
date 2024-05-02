@@ -4,18 +4,15 @@ const path = require("path")
 require ("dotenv").config()
 const morgan = require("morgan")
 const dbConnection = require("./src/config/db")
-const Service = require("./src/models/Service")
-const { cookieAuth } = require("./src/auth/auth")
-const ServiceCategory = require("./src/models/Category")
 
 const app = express()
 app.use(cookieParser())
 app.set('views', path.join(__dirname, 'src', 'views'))
 app.set("view engine", "ejs")
 app.use('/public', express.static(path.join(__dirname, 'public')))
-app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(morgan("dev"))
 const port = process.env.PORT || 5000
 dbConnection()
 
@@ -24,10 +21,10 @@ const serviceRouter = require("./src/routes/serviceRoutes")
 const serviceCategoryRouter = require("./src/routes/categoryRoutes")
 const userRouter = require("./src/routes/userRoutes")
 
-app.use("/", bookingRouter)
-app.use("/", serviceRouter)
-app.use("/", serviceCategoryRouter)
 app.use("/", userRouter)
+app.use("/", serviceCategoryRouter)
+app.use("/", serviceRouter)
+app.use("/", bookingRouter)
 
 const viewsPath = path.join(__dirname, "src", "views")
 

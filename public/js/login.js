@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 } else {
                     console.log("Non-JSON response");
-                    window.location.href = "/api/home";
+                    // window.location.href = "/home";
+                    window.location.href = responseData.redirectUrl;
                 }
             } else {
                 const data = await response.json();

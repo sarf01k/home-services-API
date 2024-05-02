@@ -8,7 +8,7 @@ serviceRouter.use(cookieParser())
 
 // serviceRouter.get("/", getServices)
 serviceRouter.post("/add", cookieAuth, isAdmin, addService)
-serviceRouter.get("/:serviceId", getService)
+// serviceRouter.get("/:serviceId", getService)
 serviceRouter.put("/update/:serviceId", cookieAuth, isAdmin, updateService)
 serviceRouter.delete("/delete/:serviceId", cookieAuth, isAdmin, deleteService)
 

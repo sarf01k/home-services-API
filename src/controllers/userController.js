@@ -51,7 +51,7 @@ exports.register = async (req, res) => {
         user.token = token;
         res.status(200).cookie("access_token", token, {
             httpOnly: true,
-        }).redirect("/api/home");;
+        }).redirect("/home");;
     } catch (error) {
         console.log(`Error:\n${error}`)
 		return res.status(500).json({ success: false, message: "Internal server error" })
@@ -78,10 +78,10 @@ exports.login = async (req, res) => {
         }
 
         const token = jwt.sign({ existingUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2h" })
-        existingUser.token = token;
+
         res.status(200).cookie("access_token", token, {
             httpOnly: true,
-        }).redirect("/api/home");
+        }).redirect("/home");
     } catch (error) {
         console.log(`Error:\n${error}`)
 		res.status(500).json({ success: false, message: "Internal server error" })
@@ -91,7 +91,7 @@ exports.login = async (req, res) => {
 exports.logout = (req, res) => {
     try {
         res.clearCookie('access_token');
-        res.status(200).redirect("http://localhost:5000")
+        res.status(200).redirect("/")
     } catch (error) {
         console.log(`Error:\n${error}`)
 		res.status(500).json({ success: false, message: "Error logging out" })

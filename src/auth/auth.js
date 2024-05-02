@@ -5,15 +5,15 @@ require("dotenv").config();
 
 exports.cookieAuth = (req, res, next) => {
 	if (!req.cookies || !req.cookies.access_token) {
-        return res.redirect("/api/auth/login");
+        return res.redirect("/login");
     }
 
     const token = req.cookies.access_token;
 
     try {
-        const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-		req.user = user
-		// console.log(req.user);
+        req.user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+		const user = req.user
+		// console.log(user);
 		next()
     } catch (error) {
         res.clearCookie("access_token").status(401).json({ message: "Authentication failed" })
