@@ -18,11 +18,9 @@ dbConnection()
 
 const bookingRouter = require("./src/routes/bookingRoutes")
 const serviceRouter = require("./src/routes/serviceRoutes")
-const serviceCategoryRouter = require("./src/routes/categoryRoutes")
 const userRouter = require("./src/routes/userRoutes")
 
 app.use("/", userRouter)
-app.use("/", serviceCategoryRouter)
 app.use("/", serviceRouter)
 app.use("/", bookingRouter)
 

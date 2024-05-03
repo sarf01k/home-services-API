@@ -4,7 +4,6 @@ const { register, login, getUsers, logout, fetchUserProfile, editUserProfile, ch
 const { cookieAuth, isAdmin } = require("../auth/auth")
 const { makeUserAdmin } = require("../utils/makeUserAdmin")
 const Service = require("../models/Service")
-const ServiceCategory = require("../models/Category")
 
 const userRouter = express.Router()
 userRouter.use(cookieParser())
@@ -19,8 +18,7 @@ userRouter.get("/home", cookieAuth, async (req, res) => {
         const user = req.user;
         if (user) {
             const services = await Service.find();
-            const categories = await ServiceCategory.find();
-            res.status(200).render("home", { services: services, categories: categories });
+            res.status(200).render("home", { services: services });
         } else {
             res.redirect("/login")
         }

@@ -1,5 +1,4 @@
 const Service = require("../models/Service");
-const ServiceCategory = require("../models/Category");
 
 exports.getServices = async (req, res) => {
     try {
@@ -35,10 +34,10 @@ exports.getService = async (req, res) => {
 exports.addService = async (req, res) => {
     // const admin = req.user.existinguser
     try {
-        const { title, description, category, price } = req.body
+        const { title, description, price } = req.body
 
-        if (!title) {
-            return res.status(400).json({ message: "Please provide a service name" })
+        if (!title || !price || title === "" || price === "") {
+            return res.status(400).json({ message: "Please provide service name & price" })
         }
 
         const existingService = await Service.findOne({ title })
@@ -50,24 +49,11 @@ exports.addService = async (req, res) => {
             })
         }
 
-        const categoryExists = await ServiceCategory.findById(category)
-
-        if (!categoryExists) {
-            return res.status(400).json({ message: "Category does not exist" })
-        }
-
         const service = await Service.create({
             title,
             description,
-            category,
             price
         })
-
-        const addToCategory = await ServiceCategory.findByIdAndUpdate(
-            service.category,
-            { $push: { services: service._id} },
-            {new: true}
-        )
 
         return res.status(200).json({
             success: true,
