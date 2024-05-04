@@ -128,3 +128,47 @@ header {
 .booking-form {
     width: 100%;
 }
+
+.section-title {
+    font-size: 25px;
+    font-weight: 500;
+    color: black;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.services-section {
+    padding: 30px;
+    background-color: #ffffff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.service-cards {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 80%;
+    gap: 20px;
+}
+
+.service-card {
+    background-color: aqua;
+    height: 220px;
+    width: 220px;
+    position: relative;
+    border-radius: 20px;
+}
+
+.service-title {
+    background: burlywood;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    text-align: center;
+    border-radius: 20px;
+    padding: 10px;
+}
