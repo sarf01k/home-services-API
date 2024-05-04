@@ -9,7 +9,7 @@
 }
 
 body {
-    background: beige;
+    background: #ede7e0;
     display: flex;
     flex-direction: column;
 }
