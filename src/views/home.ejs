@@ -48,7 +48,10 @@
         <div class="service-cards">
         <% services.forEach(service => { %>
             <div class="service-card">
-                <p class="service-title" value="<%= service.title %>"><%= service.title %></p>
+                <img class="service-card-image" src="<%= service.image %>" alt="<%= service.title %> image">
+                <a href="">
+                    <p class="service-title" value="<%= service.title %>"><%= service.title %></p>
+                </a>
             </div>
         <% }); %>
         </div>

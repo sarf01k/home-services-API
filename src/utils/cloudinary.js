@@ -7,12 +7,24 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const test_image = "src/uploads/28b387e70f7f26fdd80a4fc558816262.png";
+const images = [
+  "public/images/cctv.jpg",
+  "public/images/cleaning.jpg",
+  "public/images/electrical.jpg",
+  "public/images/gardening.jpg",
+  "public/images/painting.jpg",
+  "public/images/pet.jpg",
+  "public/images/plumbing.jpg",
+  "public/images/pool.jpg"
+];
 
 (async function uploadImage() {
   try {
-    const result = await cloudinary.uploader.upload(test_image);
-    console.log("Success✅\n", result);
+    for (const image in images){
+      const result = await cloudinary.uploader.upload(images[image], { folder: "ServEase" });
+      console.log(result);
+    }
+    console.log("Success✅");
   } catch (error) {
     console.error('Error uploading image:', error);
   }
