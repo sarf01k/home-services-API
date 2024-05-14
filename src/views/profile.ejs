@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServEase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../public/css/profile.css"></link>
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="/home">ServEase</a>
+        <a href="/logout">
+            <div id="logout-btn">
+                Log out
+                <i class='bx bx-log-out' style='color:#ffffff'  ></i>
+            </div>
+        </a>
+    </header>
+    <section class="account-info-section">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4" id="form-title">Profile</h1>
+                <form action="../../public/js/edit_profile.js" method="post">
+                    <label for="first-name">First name</label>
+                    <div class="form-group">
+                        <input value="<%= user.first_name %>" type="text" name="first-name" id="first-name" class="form-control" placeholder="" required>
+                    </div>
+                    <label for="lat-name">Last name</label>
+                    <div class="form-group">
+                        <input value="<%= user.last_name %>" type="text" name="last-name" id="last-name" class="form-control" placeholder="" required>
+                    </div>
+                    <label for="phone">Phone</label>
+                    <div class="form-group">
+                        <input value="<%= user.phone %>" type="tel" name="phone" id="phone" class="form-control" placeholder="" required>
+                    </div>
+                    <label for="email">Email</label>
+                    <div class="form-group">
+                        <input value="<%= user.email %>" type="email" name="email" id="email" class="form-control" placeholder="" required>
+                    </div>
+                    <div id="edit-error" class="error-message">*</div>
+                    <div class="row form-group justify-content-between">
+                        <a href="/home" class="btn btn-primary btn-danger" id="cancel-btn">Cancel</a>
+                        <button class="btn btn-primary ml-auto btn-success" id="save-changes-btn">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="password-section">
+        
+    </section>
+    <script src="../../public/js/edit_profile.js"></script>
+</body>

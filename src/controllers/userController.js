@@ -117,7 +117,7 @@ exports.fetchUserProfile = async (req, res) => {
     }
 }
 
-exports.fetchOtherUserProfile = async (req, res) => {
+exports.adminFetchUserProfile = async (req, res) => {
     try {
         const { userId } = req.params
 
@@ -154,11 +154,7 @@ exports.editUserProfile = async (req, res) => {
             return res.status(404).json({ success: false, message:  "User not found" })
         }
 
-        return res.status(200).json({
-            success: true,
-            message: "Profile updated",
-            updatedProfile: profileEdit
-        });
+        return res.status(200).redirect("/profile");
     } catch (error) {
         console.error(error)
         return res.status(500).json({ success: false, message: "Internal server error" })

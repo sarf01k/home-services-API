@@ -4,6 +4,7 @@ const { register, login, getUsers, logout, fetchUserProfile, editUserProfile, ch
 const { cookieAuth, isAdmin } = require("../auth/auth")
 const { makeUserAdmin } = require("../utils/makeUserAdmin")
 const Service = require("../models/Service")
+const User = require("../models/User")
 
 const userRouter = express.Router()
 userRouter.use(cookieParser())
@@ -47,10 +48,20 @@ userRouter.get("/login", async (req, res) => {
 })
 
 // userRouter.get("/", cookieAuth, isAdmin, getUsers)
-// userRouter.get("/profile", cookieAuth, isAdmin, fetchUserProfile)
+userRouter.get("/profile", cookieAuth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.existingUser._id);
+        res.render("profile", { user: user })
+    } catch (error) {
+        console.error(`Error:\n${error}`);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+userRouter.post("/profile", cookieAuth, editUserProfile)
 // userRouter.put("/profile", cookieAuth, editUserProfile)
 // userRouter.post("/profile/change-password", cookieAuth, changePassword)
-// userRouter.get("/profile/:userId", cookieAuth, isAdmin, fetchOtherUserProfile)
+// userRouter.get("/profile/:userId", cookieAuth, isAdmin, adminFetchUserProfile)
 
 // userRouter.post("/make-admin", cookieAuth, isAdmin, makeUserAdmin)
 

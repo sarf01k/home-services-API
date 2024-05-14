@@ -13,7 +13,7 @@ exports.cookieAuth = (req, res, next) => {
     try {
         req.user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		const user = req.user
-		// console.log(user);
+		console.log(user);
 		next()
     } catch (error) {
         res.clearCookie("access_token").status(401).json({ message: "Authentication failed" })
